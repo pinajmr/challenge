@@ -22,14 +22,20 @@ def run():
     df = pd.concat([df2,df01])
     df.index = range(df.shape[0])
     
+    df.style.format('{:.2f')
 
     #1. How many people were going the titanic
     people_total = df.sort_values(by= 'PassengerId', ascending = 'False').nunique()
     print(f'How many people were going on the titanic : {people_total[0]} people' )
    
     #2. How many men and women survived?
-
-
-
+    all_survived = sum((df['Survived']==1))
+    men_survived = sum((df['Survived']==1) & (df['Sex']=='male'))
+    women_survived = sum((df['Survived']==1) & (df['Sex']=='female'))
+    
+    print(f'How many survived : {all_survived}')
+    print(f'How many men survived : {men_survived}')
+    print(f'How many wome survived : {women_survived}')
+    
 if __name__ == '__main__':
     run()
