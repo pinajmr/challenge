@@ -4,7 +4,7 @@
 #Answer this questions 
 #1.How many people were going on the titanic?
 #2.How many men and women survived?
-# Top 10 ages taht more survived and the top 10 age not survived
+#3.Top 10 ages that  more survived and the top 10 age that not survived
 # 4 How many positions or titles were going on the titanic? #Note: used regular expression
 #  5 How much summary the valor tickets in USD ?
 
@@ -36,6 +36,10 @@ def run():
     print(f'How many survived : {all_survived}')
     print(f'How many men survived : {men_survived}')
     print(f'How many wome survived : {women_survived}')
-    
+
+    #3.Top 10 ages that  more survived and the top 10 age that not survived
+    df_top = df.groupby(['Age'])[['Survived']].sum()
+
+    print(df_top)
 if __name__ == '__main__':
     run()
