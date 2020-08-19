@@ -29,11 +29,6 @@ def run():
    
     #2. How many men and women survived?
 
-    # df11 = np.concatenate([df2,df1])
-    # print(df11.head())
-    # print(df11.tail())
-    # gender_survived = df1.groupby(['Survived'])['Sex']
-    # print(gender_survived.head())
 
 
 if __name__ == '__main__':
