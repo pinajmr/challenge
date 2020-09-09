@@ -38,7 +38,7 @@ def run():
 
     #1. How many people were going the titanic
     people_total = df.nunique()
-    print(f'How many people were going on the titanic : {people_total[0]} people \n' )
+    print(f'\n How many people were going on the titanic : {people_total[0]} people \n' )
 
     #2. How many men and women survived?
     #Men
@@ -52,14 +52,14 @@ def run():
     df2= df1.copy(deep = True)
     df2[['Death','Live']] = pd.get_dummies(df1['Survived'])
     df2.drop(['Survived','Full Name', 'Fare','Female','Male','Death'], axis = 1, inplace = True)
-    df_top_survived = df2.groupby(by=['Age']).sum().sort_values(by='Live', ascending=False).head(30)
-    print('What\'s  the top of age survived ? \n')
+    df_top_survived = df2.groupby(by=['Age']).sum().sort_values(by='Live', ascending=False).head(10)
+    print('\n What\'s  the top of age survived ? \n')
     print(df_top_survived)
 
     df3= df1.copy(deep = True)
     df3[['Death','Live']] = pd.get_dummies(df3['Survived'])
     df3.drop(['Survived','Full Name', 'Fare','Female','Male','Live'], axis = 1, inplace = True)
-    df_top_death = df3.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(30)
+    df_top_death = df3.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(10)
     print('What\'s  the top of age death ? \n')
     print(df_top_death)
 
@@ -75,10 +75,17 @@ def run():
 
     f.close()
     df_title = pd.DataFrame(df_title)
+    df_title.columns = ['Titles']
     df_title = df_title.drop_duplicates()
     df_title.index = range(df_title.shape[0])
-    print('Positions or titles were going on the Titanic \n')
+    print('\n Positions or titles were going on the Titanic \n')
     print(df_title)
+
+    #5.How much summary the valor tickets in USD ?
+    value = df1.apply(lambda x: x['Fare'], axis =1).sum() * 4.886
+    print(f'\n Summary the valors of tickets with fee 4.886  $ {value:,.2f} USD \n')
+
+
 if __name__ == '__main__':
     run()
 
