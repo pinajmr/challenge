@@ -1,14 +1,3 @@
-#1.Donwloads date titanic kaggle.com/c/titanic
-#2.Merge three CSV (gender_submission, test y train)
-
-#Answer this questions
-
-#1.How many people were going on the titanic?
-#2.How many men and women survived?
-#3.Top 10 ages that  more survived and the top 10 age that not survived
-#4.How many positions or titles were going on the titanic? #Note: used regular expression
-#5.How much summary the valor tickets in USD ?
-
 import pandas as pd
 import numpy as np
 import re
@@ -31,6 +20,7 @@ def run():
     df.convert_dtypes().dtypes
     df[['Survived','Sex']] = df[['Survived','Sex']].astype('category')
     df[['Female','Male']] = pd.get_dummies(df['Sex'])
+    df[['Death','Live']] = pd.get_dummies(df['Survived'])
     df.rename(columns = {'Name':'Full Name'}, inplace = True)
 
     df1 = df.copy(deep=True)
@@ -43,24 +33,22 @@ def run():
     #2. How many men and women survived?
     #Men
     survived_men = df1.query('(Male == 1) & (Survived	== 1)').count()[0]
-    print(f'How many men survived ? : {survived_men} men \n')
+    print(f' How many men survived ? : {survived_men} men \n')
     #Women
     survived_women = df1.query('(Female == 1) & (Survived == 1)').count()[0]
-    print(f'How many women survived ? : {survived_women} women \n')
+    print(f' How many women survived ? : {survived_women} women \n')
 
     #3.Top 10 ages that  more survived and the top 10 age that not survived
-    df2= df1.copy(deep = True)
-    df2[['Death','Live']] = pd.get_dummies(df1['Survived'])
-    df2.drop(['Survived','Full Name', 'Fare','Female','Male','Death'], axis = 1, inplace = True)
-    df_top_survived = df2.groupby(by=['Age']).sum().sort_values(by='Live', ascending=False).head(10)
+    df_top1= df1.copy(deep = True)
+    df_top1.drop(['Survived','Full Name', 'Fare','Female','Male','Death'], axis = 1, inplace = True)
+    df_top_survived = df_top1.groupby(by=['Age']).sum().sort_values(by='Live', ascending=False).head(10)
     print('\n What\'s  the top of age survived ? \n')
     print(df_top_survived)
 
-    df3= df1.copy(deep = True)
-    df3[['Death','Live']] = pd.get_dummies(df3['Survived'])
-    df3.drop(['Survived','Full Name', 'Fare','Female','Male','Live'], axis = 1, inplace = True)
-    df_top_death = df3.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(10)
-    print('What\'s  the top of age death ? \n')
+    df_top2= df1.copy(deep = True)
+    df_top2.drop(['Survived','Full Name', 'Fare','Female','Male','Live'], axis = 1, inplace = True)
+    df_top_death = df_top2.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(10)
+    print('\n What\'s  the top of age death ? \n')
     print(df_top_death)
 
 
