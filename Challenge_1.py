@@ -49,14 +49,20 @@ def run():
     print(f'How many women survived ? : {survived_women} women \n')
 
     #3.Top 10 ages that  more survived and the top 10 age that not survived
-    df2 = df1.copy(deep = True)
-    df2.drop(['Full Name', 'Fare','Female','Male'], axis = 1, inplace = True)
-    df_top_survived = df2.groupby(by=["Age"]).count().sort_values(by="Survived", ascending=False).head(10)
+    df2= df1.copy(deep = True)
+    df2[['Death','Live']] = pd.get_dummies(df1['Survived'])
+    df2.drop(['Survived','Full Name', 'Fare','Female','Male','Death'], axis = 1, inplace = True)
+    df_top_survived = df2.groupby(by=['Age']).sum().sort_values(by='Live', ascending=False).head(30)
     print('What\'s  the top of age survived ? \n')
     print(df_top_survived)
-    df_top_death = df2.groupby(by=["Age"]).count().sort_values(by="Survived", ascending=True).head(10)
+
+    df3= df1.copy(deep = True)
+    df3[['Death','Live']] = pd.get_dummies(df3['Survived'])
+    df3.drop(['Survived','Full Name', 'Fare','Female','Male','Live'], axis = 1, inplace = True)
+    df_top_death = df3.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(30)
     print('What\'s  the top of age death ? \n')
     print(df_top_death)
+
 
     #4.How many positions or titles were going on the titanic?
     f = open('titanic.csv','r')
