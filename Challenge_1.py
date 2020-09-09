@@ -48,7 +48,7 @@ def run():
     df_top2= df1.copy(deep = True)
     df_top2.drop(['Survived','Full Name', 'Fare','Female','Male','Live'], axis = 1, inplace = True)
     df_top_death = df_top2.groupby(by=['Age']).sum().sort_values(by='Death', ascending = False).head(10)
-    print('\n What\'s  the top of age death ? \n')
+    print('\n What\'s  the top of age dead ? \n')
     print(df_top_death)
 
 
@@ -71,7 +71,7 @@ def run():
 
     #5.How much summary the valor tickets in USD ?
     value = df1.apply(lambda x: x['Fare'], axis =1).sum() * 4.886
-    print(f'\n Summary the valors of tickets with fee 4.886  $ {value:,.2f} USD \n')
+    print(f'\n Summary the valors of tickets with a rate 4.886 pound in 1920 for every dollar, The total is $ {value:,.2f} USD \n')
 
 
 if __name__ == '__main__':
